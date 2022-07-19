@@ -76,7 +76,10 @@ router.put('/:id', (req, res) => {
     }
 )
     // returns json data with a promise, if error console log error
-    .then(catData => res.json(catData))
+    .then(catData => {
+      res.json(catData);
+      console.log('Category sucessfully updated');
+    })
     .catch(err => {
       console.log(err);
       res.status(500).json(err);
@@ -85,6 +88,20 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   // delete a category by its `id` value
+  Category.destroy({
+    where: {
+      id: req.params.id
+    },
+  })
+    // returns json data with a promise, if error console log error
+    .then(catData => {
+      res.json(catData);
+      console.log('Category sucessfully deleted');
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+      });
 });
 
 module.exports = router;
