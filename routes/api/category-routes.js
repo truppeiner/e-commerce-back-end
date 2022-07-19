@@ -63,7 +63,25 @@ router.post('/', (req, res) => {
 
 router.put('/:id', (req, res) => {
   // update a category by its `id` value
-});
+  Category.update(
+    // modify category name
+    {
+      category_name:req.body.category_name
+    },
+     // id is search param
+    {
+      where: {
+        id: req.params.id
+      }
+    }
+)
+    // returns json data with a promise, if error console log error
+    .then(catData => res.json(catData))
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+      });
+  });
 
 router.delete('/:id', (req, res) => {
   // delete a category by its `id` value
