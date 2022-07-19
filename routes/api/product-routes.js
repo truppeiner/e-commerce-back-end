@@ -128,6 +128,20 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   // delete one product by its `id` value
+  Product.destroy({
+    where: {
+      id: req.params.id
+    },
+  })
+    // returns json data with a promise, if error console log error
+    .then(catData => {
+      res.json(catData);
+      console.log('Product sucessfully deleted');
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+      });
 });
 
 module.exports = router;
