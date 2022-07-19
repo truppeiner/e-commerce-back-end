@@ -47,6 +47,18 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
   // create a new category
+  Category.create({
+    // create params are ID and category_name
+    // id is auto_increment so for request only need to enter category_name
+    id: req.body.id,
+    category_name: req.body.category_name
+  })
+    // returns json data with a promise, if error console log error
+    .then(catData => res.json(catData))
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+      });
 });
 
 router.put('/:id', (req, res) => {
